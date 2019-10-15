@@ -5,7 +5,7 @@ import json
 import builtins
 
 builtins_float = float
-version = '0.2'
+version = '0.3'
 
 
 def to_decimal(fn):
@@ -24,7 +24,7 @@ def to_decimal(fn):
                     op = lambda x, y: _op(y, x)
         if not op:
             raise NotImplementedError
-        return float(op(Decimal(str(self)), Decimal(str(other))))
+        return Float(op(Decimal(str(self)), Decimal(str(other))))
 
     return _
 
