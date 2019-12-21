@@ -1,16 +1,19 @@
 # Patch Python `float`
 
-Convert to `decimal.Decimal` for every operations of `Float`, which will monkey patch builtins `float`.
+A wrapper `Float` for `float` which will convert `float` to `decimal.Decimal` for every math calculation operations. No more `0.1 + 0.2 != 0.3` :smile:
 
-## Usage
+## Example
 
-```
-from patch_float import patch_json_loads, test_json_loads
-patch_json_loads()
-test_json_loads()
-
-# Or
-
-from patch_float import patch_float_all
-patch_float_all()
+```python
+>>> import json
+>>> from decimal import Decimal
+>>> from patch_float import builtins_float, Float, patch_json_loads, patch_float_all
+>>> (builtins_float, float, Float)
+(<class 'float'>, <class 'float'>, <class 'patch_float.Float'>)
+>>> (type(0.1), type(float(0.1)), type(json.loads('{"a": 0.1}')['a']))
+(<class 'float'>, <class 'float'>, <class 'float'>)
+>>> patch_float_all()
+==> WARNING: patched builtins float
+>>> (type(0.1), type(float(0.1)), type(json.loads('{"a": 0.1}')['a']))
+(<class 'float'>, <class 'patch_float.Float'>, <class 'patch_float.Float'>)
 ```
